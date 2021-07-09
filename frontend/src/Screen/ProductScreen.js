@@ -23,7 +23,7 @@ const ProductScreen=({history})=> {
         console.log(`dang dispatch`)
         console.log(addToCart(product._id,qty))
         dispatch(addToCart(product._id,qty))
-      
+       alert(`Add ${qty} ${product.name} to cart`)
        
     }
     return (

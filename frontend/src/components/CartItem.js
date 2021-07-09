@@ -1,29 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './CartItem.css'
-const CartItem = () => {
+const CartItem = ({item,qtyChangeHandler,removeHandler}) => {
+    console.log(item)
     return (
         <div className="container p-3 my-3 border">
             <div className="row  align-items-center ">
                 <div className="col-sm-5">
-                    <img className="img-fluid"src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80" alt="item"></img>    
+                <img className="img-fluid"src={item.imageUrl} alt="item"></img>    
                 </div>    
                 <Link to={`/product/`} className="col-sm-2">
-                    <p>Product 1</p>
+                    <p>{item.name} </p>
                 </Link>
-                <p className="col-sm-2 ">4999</p>
-                <select className="col-sm-1 px1 r">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <p className="col-sm-1">${item.price}</p>
+                
+                <select className="col-sm-1 px1 r" value={item.qty} onChange={(e)=>qtyChangeHandler(item.product,e.target.value)}>
+                    {[...Array(item.countInStock).keys()].map(
+                        x => <option key={x+1} value={x+1}>
+                                {x+1}
+                            </option>)}
 
                 </select>
-                <button className="col-sm-2 btn btn-outline-danger">
-                    <i className="fa fa-trash" ></i>
+                <button className="col-sm-2 btn btn-outline-danger" onClick={()=>removeHandler(item.product)}>
+                    <i className="fa fa-trash" >Remove item</i>
                 </button>
             </div> 
-
+            <p></p>          
         </div>
     )
 }
